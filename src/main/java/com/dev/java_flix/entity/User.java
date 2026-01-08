@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.dev.java_flix.enums.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -71,7 +72,7 @@ public class User {
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
 
-    @CreationTimestamp
+    @UpdateTimestamp
     @Column(nullable = false)
     private Instant updatedAt;
 
