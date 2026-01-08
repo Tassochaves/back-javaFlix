@@ -3,7 +3,7 @@
 #### Status do Projeto: `em desenvolvimento....👨‍💻`
 
 ### 📑 Sobre
-Este projeto é o back-end de uma plataforma de streaming inspirada na Netflix, desenvolvida para consolidar conceitos avançados de desenvolvimento Full Stack. O foco principal foi a implementação de uma arquitetura escalável, segura e com uma experiência de usuário (UX) fluida.
+Este projeto é o back-end de uma plataforma de streaming inspirada na Netflix, desenvolvida para consolidar conceitos avançados de desenvolvimento Full Stack. O foco principal é na implementação de uma arquitetura escalável, segura e com uma experiência de usuário (UX) fluida.
 
 ### 🛠️ Tecnologias e Ferramentas:
 [![Spring](https://img.shields.io/badge/Spring_Boot-3.5.9-6DB33F?style=for-the-badge&logo=spring&logoColor=white)](https://spring.io/)
