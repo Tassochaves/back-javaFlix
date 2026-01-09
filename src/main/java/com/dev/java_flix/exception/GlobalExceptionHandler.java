@@ -19,6 +19,7 @@ public class GlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    // Captura login ou senha incorretos (401 - Unauthorized)
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<Map<String, Object>> handleBadCredentials(BadCredentialsException ex){
 
@@ -26,6 +27,7 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.UNAUTHORIZED, ex.getMessage());
     }
 
+    // Captura tentativas de acesso com contas desativadas (403 - Forbidden)
     @ExceptionHandler(AccountDeactivatedException.class)
     public ResponseEntity<Map<String, Object>> handleAccountDeactivated(AccountDeactivatedException ex){
 
@@ -33,6 +35,7 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.FORBIDDEN, ex.getMessage());
     }
 
+    // Captura tentativas de login em contas que ainda não confirmaram e-mail (403 - Forbidden)
     @ExceptionHandler(EmailNotVerifiedException.class)
     public ResponseEntity<Map<String, Object>> handleEmailNotVerified(EmailNotVerifiedException ex){
 
@@ -40,6 +43,7 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.FORBIDDEN, ex.getMessage());
     }
 
+    // Captura falhas técnicas no envio de e-mails do sistema (500 - Internal Server Error)
     @ExceptionHandler(EmailSendingException.class)
     public ResponseEntity<Map<String, Object>> handleEmailSending(EmailSendingException ex){
 
@@ -47,6 +51,7 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
     }
 
+    // Captura credenciais mal formatadas ou inválidas antes da autenticação (400 - Bad Request)
     @ExceptionHandler(InvalidCredentialsException.class)
     public ResponseEntity<Map<String, Object>> handleInvalidCredentials(InvalidCredentialsException ex){
 
@@ -54,6 +59,7 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
+    // Captura quando um ID (usuário, vídeo, etc) não existe no banco (404 - Not Found)
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleResourceNotFound(ResourceNotFoundException ex){
 
@@ -61,6 +67,7 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.NOT_FOUND, ex.getMessage());
     }
 
+    // Captura tokens JWT expirados ou corrompidos (400 - Bad Request)
     @ExceptionHandler(InvalidTokenException.class)
     public ResponseEntity<Map<String, Object>> handleInvalidToken(InvalidTokenException ex){
 
@@ -68,6 +75,7 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
+    // Captura atribuição de cargos (roles) inexistentes ou inválidos (400 - Bad Request)
     @ExceptionHandler(InvalidRoleException.class)
     public ResponseEntity<Map<String, Object>> handleInvalidRole(InvalidRoleException ex){
 
@@ -75,6 +83,7 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
+    // Captura tentativa de cadastro com e-mail que já está no banco (409 - Conflict)
     @ExceptionHandler(EmailAlreadyExistsException.class)
     public ResponseEntity<Map<String, Object>> handleEmailAlreadyExists(EmailAlreadyExistsException ex){
 
@@ -82,6 +91,7 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.CONFLICT, ex.getMessage());
     }
 
+    // Captura e extrai a mensagem de validação (400 - Bad Request)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleMethodArgumentNotValid(MethodArgumentNotValidException ex){
 
@@ -98,12 +108,14 @@ public class GlobalExceptionHandler {
                     "error", message));
     }
 
+    // Silencia erros comuns de streaming quando o usuário fecha o vídeo ou pula partes (Seek)
     @ExceptionHandler({AsyncRequestNotUsableException.class, ClientAbortException.class})
     public void handleClientAbort(Exception ex){
 
         log.debug("Client closed connection during streaming (expected for video seeking/buffering) : {}", ex.getMessage());
     }
 
+    // Captura qualquer erro inesperado ou não mapeado (500 - Internal Server Error)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGeneric(Exception ex){
 
@@ -111,6 +123,7 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
     }
 
+    // Método auxiliar para padronizar o formato do JSON de erro enviado ao cliente
     public ResponseEntity<Map<String, Object>> buildResponse(HttpStatus status, String message){
 
         Map<String, Object> body = Map.of("timestamp", Instant.now(), "error", message);
