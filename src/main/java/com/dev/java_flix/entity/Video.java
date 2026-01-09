@@ -21,6 +21,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -54,6 +55,10 @@ public class Video {
 
     @Column(nullable = false)
     private boolean published = false;
+
+    @Transient
+    @JsonProperty("isInWatchlist")
+    private Boolean isInWatchlist;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
