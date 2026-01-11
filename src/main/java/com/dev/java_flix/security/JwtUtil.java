@@ -17,6 +17,7 @@ import io.jsonwebtoken.security.Keys;
 @Component
 public class JwtUtil {
 
+    // Validade do token para 30 dias
     private static final long JWT_TOKEN_VALIDITY = 30L * 24 * 60 * 60 * 1000;
 
     @Value("${jwt.secret}")
@@ -44,6 +45,7 @@ public class JwtUtil {
         return claimsResolver.apply(claims);
     }
 
+    // Decodifica o token usando a chave secreta e retorna todos os dados contidos
     private Claims getAllClaimsFromToken(String token){
         return Jwts.parser()
                     .verifyWith(getSigningKey())
@@ -52,6 +54,7 @@ public class JwtUtil {
                     .getPayload();
     }
 
+    // Ponto de entrada para criar um novo
     public String generateToken(String username, String role){
 
         Map<String, Object> claims = new HashMap<>();
@@ -59,6 +62,7 @@ public class JwtUtil {
         return doGenerateToken(claims, username);
     }
 
+    // Constrói o token JWT
     private String doGenerateToken(Map<String,Object> claims, String subject) {
         
         return Jwts.builder()
@@ -72,7 +76,7 @@ public class JwtUtil {
 
     private Boolean isTokenExpired(String token){
         final Date expiration = getExpirationDateFromToken(token);
-        return expiration.before(expiration);
+        return expiration.before(new Date());
     }
 
     public Boolean validateToken(String token){
