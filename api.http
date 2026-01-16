@@ -1,10 +1,11 @@
 @baseUrl = http://localhost:8080
 
-###
-POST {{baseUrl}}/api/
+### Signup
+POST {{baseUrl}}/api/auth/signup
 Content-Type: application/json
 
 {
-    "field": "value",
-    "field": 25.5
+    "email": "myteste@mailinator.com",
+    "password": "12345678",
+    "fullName": "Teste Fulano"
 }
