@@ -60,8 +60,33 @@ public class EmailServiceImpl implements EmailService{
 
     @Override
     public void sendPasswordResetEmail(String toEmail, String token) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'sendPasswordResetEmail'");
+        
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom(fromEmail);
+            message.setTo(toEmail);
+            message.setSubject("JavaFlix - Password Reset");
+
+            String resetLink = frontendUrl + "/reset-password?token="+token;
+
+            String emailBody = 
+                    "Hi,\n\n"
+                    + "We received a request to reset your password. Click the link below to reset it:\n\n"
+                    + resetLink
+                    + "\n\n"
+                    + "This link will expire in 1 hours. \n\n"
+                    + "If you didn`t request a password reset, please ignore this email. \n\n"
+                    + "Best regards, \n\n"
+                    + "JavaFlix Team";
+
+            message.setText(emailBody);
+            javaMailSender.send(message);
+            logger.info("Password reset email sent to {}", toEmail);
+
+        } catch (Exception e) {
+            logger.error("Failed to send password reset email to {}: {}", toEmail, e.getMessage());
+            throw new RuntimeException("Failed to send password reset email");
+        }
     }
 
 }
