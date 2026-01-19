@@ -8,10 +8,14 @@ import org.springframework.stereotype.Service;
 
 import com.dev.java_flix.dao.UserRepository;
 import com.dev.java_flix.dto.request.UserRequest;
+import com.dev.java_flix.dto.response.LoginResponse;
 import com.dev.java_flix.dto.response.MessageResponse;
 import com.dev.java_flix.entity.User;
 import com.dev.java_flix.enums.Role;
+import com.dev.java_flix.exception.AccountDeactivatedException;
+import com.dev.java_flix.exception.BadCredentialsException;
 import com.dev.java_flix.exception.EmailAlreadyExistsException;
+import com.dev.java_flix.exception.EmailNotVerifiedException;
 import com.dev.java_flix.security.JwtUtil;
 import com.dev.java_flix.service.AuthService;
 import com.dev.java_flix.service.EmailService;
@@ -67,6 +71,25 @@ public class AuthServiceImpl implements AuthService{
         emailService.sendVerificationEmail(userRequest.getEmail(), verificationToken);
 
         return new MessageResponse("Registration successful! Please check your email to verify your account");
+    }
+
+    @Override
+    public LoginResponse login(String email, String password) {
+        User user = userRepository.findByEmail(email)
+                            .filter(u -> passwordEncoder.matches(password, u.getPassword()))
+                            .orElseThrow(() -> new BadCredentialsException("Invalid email or password"));
+
+        if(!user.isActive()){
+            throw new AccountDeactivatedException("Your account has been deactivated. Please contact support for assistance.");
+        }
+        
+        if(!user.isEmailVerified()){
+            throw new EmailNotVerifiedException("Please verify your email address before loggin in. Check your inbox for the verification link.");
+        }
+
+        final String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
+
+        return new LoginResponse(token, user.getEmail(), user.getFullName(), user.getRole().name());
     }
 
 }

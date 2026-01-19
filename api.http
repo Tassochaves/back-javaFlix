@@ -9,3 +9,12 @@ Content-Type: application/json
     "password": "12345678",
     "fullName": "Teste Fulano"
 }
+
+### Login
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "myteste@mailinator.com",
+    "password": "12345678"
+}

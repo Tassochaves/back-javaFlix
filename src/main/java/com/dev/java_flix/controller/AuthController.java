@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dev.java_flix.dto.request.LoginRequest;
 import com.dev.java_flix.dto.request.UserRequest;
+import com.dev.java_flix.dto.response.LoginResponse;
 import com.dev.java_flix.dto.response.MessageResponse;
 import com.dev.java_flix.service.AuthService;
 
@@ -26,5 +28,12 @@ public class AuthController {
     public ResponseEntity<MessageResponse> register(@Valid @RequestBody UserRequest userRequest){
 
         return ResponseEntity.ok(authService.signup(userRequest));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest){
+
+        LoginResponse response = authService.login(loginRequest.getEmail(), loginRequest.getPassword());
+        return ResponseEntity.ok(response);
     }
 }
