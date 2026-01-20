@@ -44,4 +44,9 @@ public class AuthController {
     public ResponseEntity<EmailValidationResponse> validateEmail(@RequestParam String email){
         return ResponseEntity.ok(authService.validateEmail(email));
     }
+
+    @GetMapping("/verify-email")
+    public ResponseEntity<MessageResponse> verifyEmail(@RequestParam String token){
+        return ResponseEntity.ok(authService.verifyEmail(token));
+    }
 }

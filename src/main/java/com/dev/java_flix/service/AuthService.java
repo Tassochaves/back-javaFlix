@@ -16,4 +16,6 @@ public interface AuthService {
 
     EmailValidationResponse validateEmail(String email);
 
+    MessageResponse verifyEmail(String token);
+
 }

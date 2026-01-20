@@ -5,9 +5,9 @@ POST {{baseUrl}}/api/auth/signup
 Content-Type: application/json
 
 {
-    "email": "myteste@mailinator.com",
+    "email": "myteste3@mailinator.com",
     "password": "12345678",
-    "fullName": "Teste Fulano"
+    "fullName": "Teste Fulano3"
 }
 
 ### Login
@@ -22,3 +22,7 @@ Content-Type: application/json
 ### Validate email
 GET {{baseUrl}}/api/auth/validate-email
     ?email=myteste@mailinator.com
+
+### Verify email
+GET {{baseUrl}}/api/auth/verify-email
+    ?token=uuid-token-gerado-123

@@ -17,6 +17,7 @@ import com.dev.java_flix.exception.AccountDeactivatedException;
 import com.dev.java_flix.exception.BadCredentialsException;
 import com.dev.java_flix.exception.EmailAlreadyExistsException;
 import com.dev.java_flix.exception.EmailNotVerifiedException;
+import com.dev.java_flix.exception.InvalidTokenException;
 import com.dev.java_flix.security.JwtUtil;
 import com.dev.java_flix.service.AuthService;
 import com.dev.java_flix.service.EmailService;
@@ -98,6 +99,24 @@ public class AuthServiceImpl implements AuthService{
         
         boolean exists = userRepository.existsByEmail(email);
         return new EmailValidationResponse(exists, !exists);
+    }
+
+    @Override
+    public MessageResponse verifyEmail(String token) {
+        
+        User user = userRepository.findByVerificationToken(token)
+                        .orElseThrow(() -> new InvalidTokenException("Invalid or expired verification token."));
+
+        if (user.getVerificationTokenExpiry() == null || user.getVerificationTokenExpiry().isBefore(Instant.now())){
+            throw new InvalidTokenException("Verification link has expired. Please request a new one.");
+        }
+
+        user.setEmailVerified(true);
+        user.setVerificationToken(null);
+        user.setVerificationTokenExpiry(null);
+        userRepository.save(user);
+
+        return new MessageResponse("Email verified successfully! you can now login.");
     }
 
 }
