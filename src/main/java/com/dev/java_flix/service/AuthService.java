@@ -1,6 +1,7 @@
 package com.dev.java_flix.service;
 
 import com.dev.java_flix.dto.request.UserRequest;
+import com.dev.java_flix.dto.response.EmailValidationResponse;
 import com.dev.java_flix.dto.response.LoginResponse;
 import com.dev.java_flix.dto.response.MessageResponse;
 
@@ -12,5 +13,7 @@ public interface AuthService {
     MessageResponse signup(@Valid UserRequest userRequest);
 
     LoginResponse login(String email, String password);
+
+    EmailValidationResponse validateEmail(String email);
 
 }

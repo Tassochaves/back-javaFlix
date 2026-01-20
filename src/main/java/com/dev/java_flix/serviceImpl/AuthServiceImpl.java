@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.dev.java_flix.dao.UserRepository;
 import com.dev.java_flix.dto.request.UserRequest;
+import com.dev.java_flix.dto.response.EmailValidationResponse;
 import com.dev.java_flix.dto.response.LoginResponse;
 import com.dev.java_flix.dto.response.MessageResponse;
 import com.dev.java_flix.entity.User;
@@ -90,6 +91,13 @@ public class AuthServiceImpl implements AuthService{
         final String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
 
         return new LoginResponse(token, user.getEmail(), user.getFullName(), user.getRole().name());
+    }
+
+    @Override
+    public EmailValidationResponse validateEmail(String email) {
+        
+        boolean exists = userRepository.existsByEmail(email);
+        return new EmailValidationResponse(exists, !exists);
     }
 
 }
