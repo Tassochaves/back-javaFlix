@@ -20,4 +20,8 @@ public interface AuthService {
 
     MessageResponse resendVerification(String email);
 
+    MessageResponse forgotPassword(String email);
+
+    MessageResponse resetPassword(String token, String newPassword);
+
 }

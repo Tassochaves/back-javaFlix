@@ -5,9 +5,9 @@ POST {{baseUrl}}/api/auth/signup
 Content-Type: application/json
 
 {
-    "email": "myteste3@mailinator.com",
+    "email": "myteste@mailinator.com",
     "password": "12345678",
-    "fullName": "Teste Fulano3"
+    "fullName": "Teste Fulano"
 }
 
 ### Login
@@ -32,5 +32,22 @@ POST {{baseUrl}}/api/auth/resend-verification
 Content-Type: application/json
 
 {
-    "email": "myteste3@mailinator.com"
+    "email": "myteste@mailinator.com"
+}
+
+### Forgot password
+POST {{baseUrl}}/api/auth/forgot-password
+Content-Type: application/json
+
+{
+    "email": "myteste@mailinator.com"
+}
+
+### Reset password
+POST {{baseUrl}}/api/auth/reset-password
+Content-Type: application/json
+
+{
+    "token": "83bb2512-b295-43ac-9be0-2a28bd53efca",
+    "newPassword": "12345678"
 }

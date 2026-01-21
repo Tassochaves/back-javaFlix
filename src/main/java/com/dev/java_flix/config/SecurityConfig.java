@@ -30,7 +30,7 @@ public class SecurityConfig {
         "/api/auth/validate-email",
         "/api/auth/verify-email",
         "/api/auth/resend-verification",
-        "/api/auth/forget-password",
+        "/api/auth/forgot-password",
         "/api/auth/reset-password"
     };
 

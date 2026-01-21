@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dev.java_flix.dto.request.EmailRequest;
 import com.dev.java_flix.dto.request.LoginRequest;
+import com.dev.java_flix.dto.request.ResetPasswordRequest;
 import com.dev.java_flix.dto.request.UserRequest;
 import com.dev.java_flix.dto.response.EmailValidationResponse;
 import com.dev.java_flix.dto.response.LoginResponse;
@@ -51,8 +52,18 @@ public class AuthController {
         return ResponseEntity.ok(authService.verifyEmail(token));
     }
 
-    @PostMapping("resend-verification")
+    @PostMapping("/resend-verification")
     public ResponseEntity<MessageResponse> resendVerification(@Valid @RequestBody EmailRequest emailRequest){
         return ResponseEntity.ok(authService.resendVerification(emailRequest.getEmail()));
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<MessageResponse> forgotPassword(@Valid @RequestBody EmailRequest emailRequest){
+        return ResponseEntity.ok(authService.forgotPassword(emailRequest.getEmail()));
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<MessageResponse> resetPassword(@Valid @RequestBody ResetPasswordRequest resetPasswordRequest){
+        return ResponseEntity.ok(authService.resetPassword(resetPasswordRequest.getToken(), resetPasswordRequest.getNewPassword()));
     }
 }

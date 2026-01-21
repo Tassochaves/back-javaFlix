@@ -63,10 +63,10 @@ public class User {
     private Instant verificationTokenExpiry;
 
     @Column
-    private String passwordRestToken;
+    private String passwordResetToken;
 
     @Column
-    private Instant passwordRestTokenExpiry;
+    private Instant passwordResetTokenExpiry;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
