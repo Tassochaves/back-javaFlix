@@ -17,6 +17,7 @@ import com.dev.java_flix.exception.AccountDeactivatedException;
 import com.dev.java_flix.exception.BadCredentialsException;
 import com.dev.java_flix.exception.EmailAlreadyExistsException;
 import com.dev.java_flix.exception.EmailNotVerifiedException;
+import com.dev.java_flix.exception.InvalidCredentialsException;
 import com.dev.java_flix.exception.InvalidTokenException;
 import com.dev.java_flix.security.JwtUtil;
 import com.dev.java_flix.service.AuthService;
@@ -167,6 +168,21 @@ public class AuthServiceImpl implements AuthService{
 
         userRepository.save(user);
         return new MessageResponse("Password reset successfully. You can now log in with your new password");
+    }
+
+    @Override
+    public MessageResponse changePassword(String email, String currentPassword, String newPassword) {
+        
+        User user = serviceUtils.getUserByEmailOrThrow(email);
+
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())){
+            throw new InvalidCredentialsException("Current password is incorrect");
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+
+        return new MessageResponse("Password changed successfully.");
     }
 
 }

@@ -1,6 +1,7 @@
 package com.dev.java_flix.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dev.java_flix.dto.request.ChangePasswordRequest;
 import com.dev.java_flix.dto.request.EmailRequest;
 import com.dev.java_flix.dto.request.LoginRequest;
 import com.dev.java_flix.dto.request.ResetPasswordRequest;
@@ -65,5 +67,17 @@ public class AuthController {
     @PostMapping("/reset-password")
     public ResponseEntity<MessageResponse> resetPassword(@Valid @RequestBody ResetPasswordRequest resetPasswordRequest){
         return ResponseEntity.ok(authService.resetPassword(resetPasswordRequest.getToken(), resetPasswordRequest.getNewPassword()));
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<MessageResponse> changePassword(Authentication authentication, @Valid @RequestBody ChangePasswordRequest changePasswordRequest){
+
+        String email = authentication.getName();
+        return ResponseEntity.ok(
+            authService.changePassword(
+                email,
+                changePasswordRequest.getCurrentPassword(),
+                changePasswordRequest.getNewPassword()
+            ));
     }
 }
