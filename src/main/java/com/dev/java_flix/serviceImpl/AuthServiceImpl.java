@@ -119,4 +119,20 @@ public class AuthServiceImpl implements AuthService{
         return new MessageResponse("Email verified successfully! you can now login.");
     }
 
+    @Override
+    public MessageResponse resendVerification(String email) {
+        
+        User user = serviceUtils.getUserByEmailOrThrow(email);
+
+        String verificationToken = UUID.randomUUID().toString();
+
+        user.setVerificationToken(verificationToken);
+        user.setVerificationTokenExpiry(Instant.now().plusSeconds(86400));
+
+        userRepository.save(user);
+        emailService.sendVerificationEmail(email, verificationToken);
+        
+        return new MessageResponse("Verification email resend successfully! Please check your inbox.");
+    }
+
 }

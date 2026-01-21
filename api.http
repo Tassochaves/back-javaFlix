@@ -26,3 +26,11 @@ GET {{baseUrl}}/api/auth/validate-email
 ### Verify email
 GET {{baseUrl}}/api/auth/verify-email
     ?token=uuid-token-gerado-123
+
+### resend email verification
+POST {{baseUrl}}/api/auth/resend-verification
+Content-Type: application/json
+
+{
+    "email": "myteste3@mailinator.com"
+}
