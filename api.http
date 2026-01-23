@@ -77,3 +77,16 @@ Authorization: Bearer {{authToken}}
 GET {{baseUrl}}/api/auth/current-user
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
+
+
+### Create user
+POST {{baseUrl}}/api/users
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "email": "myteste2@mailinator.com",
+    "password": "12345678",
+    "fullName": "Teste 2",
+    "role": "USER"
+}
