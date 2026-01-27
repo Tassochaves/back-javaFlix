@@ -90,3 +90,13 @@ Authorization: Bearer {{authToken}}
     "fullName": "Teste 2",
     "role": "USER"
 }
+
+### Update user
+PUT {{baseUrl}}/api/users/2
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "fullName": "Teste updt2",
+    "role": "USER"
+}

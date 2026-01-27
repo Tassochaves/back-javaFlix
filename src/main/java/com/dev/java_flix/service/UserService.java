@@ -7,4 +7,6 @@ public interface UserService {
 
     MessageResponse createUser(UserRequest userRequest);
 
+    MessageResponse updateUser(Long id, UserRequest userRequest);
+
 }

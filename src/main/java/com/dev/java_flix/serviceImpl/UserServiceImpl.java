@@ -71,4 +71,28 @@ public class UserServiceImpl implements UserService{
         }
     }
 
+    @Override
+    public MessageResponse updateUser(Long id, UserRequest userRequest) {
+        User user = serviceUtils.getUserByIdOrThrow(id);
+
+        ensureNotLastActiveAdmin(user);
+        validateRole(userRequest.getRole());
+
+        user.setFullName(userRequest.getFullName());
+        user.setRole(Role.valueOf(userRequest.getRole().toUpperCase()));
+
+        userRepository.save(user);
+        return new MessageResponse("User updated successfully.");
+    }
+
+    private void ensureNotLastActiveAdmin(User user){
+        if (user.isActive() && user.getRole() == Role.ADMIN){
+            long activeAdminCount = userRepository.countByRoleAndActive(Role.ADMIN, true);
+
+            if (activeAdminCount <= 1){
+                throw new RuntimeException("Cannot deactivate the last active admin user");
+            }
+        }
+    }
+
 }
