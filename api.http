@@ -91,6 +91,7 @@ Authorization: Bearer {{authToken}}
     "role": "USER"
 }
 
+
 ### Update user
 PUT {{baseUrl}}/api/users/2
 Content-Type: application/json
@@ -100,3 +101,11 @@ Authorization: Bearer {{authToken}}
     "fullName": "Teste updt2",
     "role": "USER"
 }
+
+### Get all users
+GET {{baseUrl}}/api/users
+    ?page=0
+    &size=10
+    &search=Test
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
