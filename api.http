@@ -109,3 +109,8 @@ GET {{baseUrl}}/api/users
     &search=Test
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
+
+### Delete user
+DELETE {{baseUrl}}/api/users/2
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
