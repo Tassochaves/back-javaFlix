@@ -119,3 +119,12 @@ Authorization: Bearer {{authToken}}
 PATCH {{baseUrl}}/api/users/3/toggle-status
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
+
+### Change user role
+PATCH {{baseUrl}}/api/users/3/change-role
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "role": "USER"
+}

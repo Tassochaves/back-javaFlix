@@ -17,4 +17,6 @@ public interface UserService {
 
     MessageResponse toggleUserStatus(Long id, String currentUserEmail);
 
+    MessageResponse changeUserRole(Long id, UserRequest userRequest);
+
 }

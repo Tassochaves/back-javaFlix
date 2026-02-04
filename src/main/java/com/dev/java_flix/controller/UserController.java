@@ -63,4 +63,10 @@ public class UserController {
         String currentUserEmail = authentication.getName();
         return ResponseEntity.ok(userService.toggleUserStatus(id, currentUserEmail)); 
     }
+
+    @PatchMapping("/{id}/change-role")
+    public ResponseEntity<MessageResponse> changeUserRole(@PathVariable Long id, @RequestBody UserRequest userRequest){
+
+        return ResponseEntity.ok(userService.changeUserRole(id, userRequest));
+    }
 }
