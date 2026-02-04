@@ -142,4 +142,22 @@ public class UserServiceImpl implements UserService{
         }
     }
 
+    @Override
+    public MessageResponse toggleUserStatus(Long id, String currentUserEmail) {
+        
+        User user = serviceUtils.getUserByIdOrThrow(id);
+
+        if (user.getEmail().equals(currentUserEmail)) {
+            throw new RuntimeException("You cannot deactivate your own account");
+        }
+
+        ensureNotLastActiveAdmin(user);
+
+        user.setActive(!user.isActive());
+        userRepository.save(user);
+
+        String status = user.isActive() ? "activated" : "deactivated";
+        return new MessageResponse("User " + status + " successfully");
+    }
+
 }

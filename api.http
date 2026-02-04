@@ -5,9 +5,9 @@ POST {{baseUrl}}/api/auth/signup
 Content-Type: application/json
 
 {
-    "email": "myteste@mailinator.com",
+    "email": "myteste2@mailinator.com",
     "password": "12345678",
-    "fullName": "Teste Fulano"
+    "fullName": "Teste user2"
 }
 
 
@@ -93,12 +93,12 @@ Authorization: Bearer {{authToken}}
 
 
 ### Update user
-PUT {{baseUrl}}/api/users/2
+PATCH {{baseUrl}}/api/users/3
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-    "fullName": "Teste updt2",
+    "fullName": "Teste user2",
     "role": "USER"
 }
 
@@ -112,5 +112,10 @@ Authorization: Bearer {{authToken}}
 
 ### Delete user
 DELETE {{baseUrl}}/api/users/2
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+### Toggle user status
+PATCH {{baseUrl}}/api/users/3/toggle-status
 Content-Type: application/json
 Authorization: Bearer {{authToken}}

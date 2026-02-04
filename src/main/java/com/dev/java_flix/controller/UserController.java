@@ -5,9 +5,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,7 +36,7 @@ public class UserController {
         return ResponseEntity.ok(userService.createUser(userRequest));
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<MessageResponse> updateUser(@PathVariable Long id, @RequestBody UserRequest userRequest){
         return ResponseEntity.ok(userService.updateUser(id, userRequest)); 
     }
@@ -55,5 +55,12 @@ public class UserController {
 
         String currentUserEmail = authentication.getName();
         return ResponseEntity.ok(userService.deleteUser(id, currentUserEmail));
+    }
+
+    @PatchMapping("/{id}/toggle-status")
+    public ResponseEntity<MessageResponse> toggleUserStatus(@PathVariable Long id, Authentication authentication){
+
+        String currentUserEmail = authentication.getName();
+        return ResponseEntity.ok(userService.toggleUserStatus(id, currentUserEmail)); 
     }
 }
