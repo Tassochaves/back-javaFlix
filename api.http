@@ -140,3 +140,15 @@ Content-Type: video/mp4
 
 < C:\Users\Tchaves\Videos\videoTeste.mp4
 --boundary--
+
+### Upload image
+POST {{baseUrl}}/api/files/upload/image
+Content-Type: multipart/form-data; boundary=boundary
+Authorization: Bearer {{authToken}}
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="Imagem1.png"
+Content-Type: image/png
+
+< C:\Users\Tchaves\Pictures\Imagem1.png
+--boundary--

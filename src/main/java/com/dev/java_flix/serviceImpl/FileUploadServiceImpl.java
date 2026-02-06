@@ -81,4 +81,9 @@ public class FileUploadServiceImpl implements FileUploadService{
         }
     }
 
+    @Override
+    public String storeImageFile(MultipartFile file) {
+        return storeFile(file, imageStorageLocation);
+    }
+
 }

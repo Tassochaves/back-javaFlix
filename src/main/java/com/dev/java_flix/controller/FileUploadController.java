@@ -26,4 +26,11 @@ public class FileUploadController {
         String uuid = fileUploadService.storeVideoFile(file);
         return ResponseEntity.ok(new FileUploadResponse(uuid, file.getOriginalFilename(), file.getSize()));
     }
+
+    @PostMapping("/upload/image")
+    public ResponseEntity<FileUploadResponse> uploadImage(@RequestParam("file") MultipartFile file){
+
+        String uuid = fileUploadService.storeImageFile(file);
+        return ResponseEntity.ok(new FileUploadResponse(uuid, file.getOriginalFilename(), file.getSize()));
+    }
 }

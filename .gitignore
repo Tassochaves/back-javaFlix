@@ -33,6 +33,6 @@ build/
 .vscode/
 **/application-dev.properties
 
-### Meus files
+### My files
 /uploads/videos/**
 /uploads/images/**
