@@ -121,10 +121,22 @@ Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 ### Change user role
-PATCH {{baseUrl}}/api/users/3/change-role
+PATCH {{baseUrl}}/api/users/1/change-role
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-    "role": "USER"
+    "role": "ADMIN"
 }
+
+### Upload video
+POST {{baseUrl}}/api/files/upload/video
+Content-Type: multipart/form-data; boundary=boundary
+Authorization: Bearer {{authToken}}
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="videoTeste.mp4"
+Content-Type: video/mp4
+
+< C:\Users\Tchaves\Videos\videoTeste.mp4
+--boundary--
