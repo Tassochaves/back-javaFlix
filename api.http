@@ -116,7 +116,7 @@ Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 ### Toggle user status
-PATCH {{baseUrl}}/api/users/3/toggle-status
+PATCH {{baseUrl}}/api/users/1/toggle-status
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
@@ -126,7 +126,7 @@ Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-    "role": "ADMIN"
+    "role": "USER"
 }
 
 ### Upload video
@@ -140,6 +140,11 @@ Content-Type: video/mp4
 
 < C:\Users\Tchaves\Videos\videoTeste.mp4
 --boundary--
+
+### Serve video
+GET {{baseUrl}}/api/files/video/uuid-video
+    ?range=0-100
+Authorization: Bearer {{authToken}}
 
 ### Upload image
 POST {{baseUrl}}/api/files/upload/image
