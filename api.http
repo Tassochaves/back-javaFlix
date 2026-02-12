@@ -138,7 +138,7 @@ Authorization: Bearer {{authToken}}
 Content-Disposition: form-data; name="file"; filename="videoTeste.mp4"
 Content-Type: video/mp4
 
-< C:\Users\Tchaves\Videos\videoTeste.mp4
+< C:\Users\Tchaves\Videos\WhatsAppVideo.mp4
 --boundary--
 
 ### Serve video
@@ -157,3 +157,7 @@ Content-Type: image/png
 
 < C:\Users\Tchaves\Pictures\Imagem1.png
 --boundary--
+
+### Serve image
+GET {{baseUrl}}/api/files/image/uuid-image
+Authorization: Bearer {{authToken}}

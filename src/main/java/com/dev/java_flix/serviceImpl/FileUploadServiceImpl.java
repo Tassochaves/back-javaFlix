@@ -148,6 +148,7 @@ public class FileUploadServiceImpl implements FileUploadService{
 
         Resource rangResource = FileHandlerUtil.createRangeResource(filePath, rangeStart, contentLength);
 
+        //Header de Resposta HTTP
         return ResponseEntity.status(206)
                     .contentType(MediaType.parseMediaType(contentType))
                     .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + filename + "\"")
@@ -168,4 +169,21 @@ public class FileUploadServiceImpl implements FileUploadService{
                     .build();
     }
 
+    @Override
+    public ResponseEntity<Resource> serveImage(String uuid) {
+        try {
+            Path filePath = FileHandlerUtil.findFileByUuid(imageStorageLocation, uuid);
+            Resource resource = FileHandlerUtil.createFullResource(filePath);
+
+            String filename = resource.getFilename();
+            String contentType = FileHandlerUtil.detectImageContentType(filename);
+
+            return ResponseEntity.ok()
+                        .contentType(MediaType.parseMediaType(contentType))
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + filename + "\"")
+                        .body(resource);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

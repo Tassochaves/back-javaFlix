@@ -47,4 +47,9 @@ public class FileUploadController {
 
         return fileUploadService.serveVideo(uuid, rangeHeader);
     }
+
+     @GetMapping("/image/{uuid}")
+    public ResponseEntity<Resource> serverImage(@PathVariable String uuid){
+        return fileUploadService.serveImage(uuid);
+    }
 }
