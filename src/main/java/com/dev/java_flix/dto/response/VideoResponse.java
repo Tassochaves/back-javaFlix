@@ -3,6 +3,8 @@ package com.dev.java_flix.dto.response;
 import java.time.Instant;
 import java.util.List;
 
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import com.dev.java_flix.entity.Video;
 
 import lombok.Data;
@@ -57,6 +59,16 @@ public class VideoResponse {
 
     public static VideoResponse fromEntity(Video video){
 
+        String videoUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/api/files/video/")
+                .path(video.getSrcUuid())
+                .toUriString();
+
+        String posterUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/api/files/image/")
+                .path(video.getPosterUuid())
+                .toUriString();
+
         VideoResponse response = new VideoResponse(
             video.getId(),
             video.getTitle(),
@@ -64,8 +76,8 @@ public class VideoResponse {
             video.getYear(),
             video.getRating(),
             video.getDuration(),
-            video.getSrc(),
-            video.getPoster(),
+            videoUrl,
+            posterUrl,
             video.isPublished(),
             video.getCategories(),
             video.getCreatedAt(),

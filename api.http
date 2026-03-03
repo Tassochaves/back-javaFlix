@@ -5,7 +5,7 @@ POST {{baseUrl}}/api/auth/signup
 Content-Type: application/json
 
 {
-    "email": "myteste2@mailinator.com",
+    "email": "myteste1@mailinator.com",
     "password": "12345678",
     "fullName": "Teste user2"
 }
@@ -31,7 +31,7 @@ GET {{baseUrl}}/api/auth/validate-email
 
 ### Verify email
 GET {{baseUrl}}/api/auth/verify-email
-    ?token=uuid-token-gerado-123
+    ?token=d6f5fecd-3ac8-4f5a-ba0c-381334e4e67c
 
 
 ### resend email verification
@@ -136,7 +136,7 @@ Authorization: Bearer {{authToken}}
 Content-Disposition: form-data; name="file"; filename="videoTeste.mp4"
 Content-Type: video/mp4
 
-< C:\Users\Tchaves\Videos\WhatsAppVideo.mp4
+< C:\Users\Tchaves\Videos\WhatsAppVideo.mp4 
 --boundary--
 
 ### Create video by admin
@@ -145,16 +145,23 @@ Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-    "title": "Sample video title",
+    "title": "Sample video title2",
     "description": "This is a sample video description",
     "src": "video-uuid-here",
-    "poster": "Sample video title",
+    "poster": "poster-uuid-here",
     "year": 2026,
     "rating": "PG-22",
     "duration": 8100,
     "categories": ["Action", "Thriller"],
     "published": false
 }
+
+### Get all admin videos
+GET {{baseUrl}}/api/videos/admin
+    ?page=0
+    &size=10
+    &search=
+Authorization: Bearer {{authToken}}
 
 ### Serve video
 GET {{baseUrl}}/api/files/video/uuid-video

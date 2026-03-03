@@ -2,21 +2,32 @@ package com.dev.java_flix.serviceImpl;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.dev.java_flix.dao.UserRepository;
 import com.dev.java_flix.dao.VideoRepository;
 import com.dev.java_flix.dto.request.VideoRequest;
 import com.dev.java_flix.dto.response.MessageResponse;
+import com.dev.java_flix.dto.response.PageResponse;
+import com.dev.java_flix.dto.response.VideoResponse;
 import com.dev.java_flix.entity.Video;
 import com.dev.java_flix.service.VideoService;
+import com.dev.java_flix.util.PaginationUtils;
+import com.dev.java_flix.util.ServiceUtils;
 
 @Service
 public class VideoServiceImpl implements VideoService{
 
     private final VideoRepository videoRepository;
+    private final UserRepository userRepository;
+    private final ServiceUtils serviceUtils;
 
-    public VideoServiceImpl(VideoRepository videoRepository){
+    public VideoServiceImpl(VideoRepository videoRepository, UserRepository userRepository, ServiceUtils serviceUtils){
         this.videoRepository = videoRepository;
+        this.userRepository = userRepository;
+        this.serviceUtils = serviceUtils;
     }
 
     @Override
@@ -38,6 +49,21 @@ public class VideoServiceImpl implements VideoService{
         videoRepository.save(video);
 
         return new MessageResponse("Video created successfully.");
+    }
+
+    @Override
+    public PageResponse<VideoResponse> getAllAdminVideos(int page, int size, String search) {
+        
+        Pageable pageable = PaginationUtils.createPageRequest(page, size, "id");
+        Page<Video> videoPage;
+
+        if (search != null && !search.trim().isEmpty()){
+            videoPage = videoRepository.searchVideos(search.trim(), pageable);
+        } else {
+            videoPage = videoRepository.findAll(pageable);
+        }
+        
+        return PaginationUtils.toPageResponse(videoPage, VideoResponse::fromEntity);
     }
 
 }
