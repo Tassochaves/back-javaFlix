@@ -42,7 +42,6 @@ Content-Type: application/json
     "email": "myteste@mailinator.com"
 }
 
-
 ### Forgot password
 POST {{baseUrl}}/api/auth/forgot-password
 Content-Type: application/json
@@ -50,7 +49,6 @@ Content-Type: application/json
 {
     "email": "myteste@mailinator.com"
 }
-
 
 ### Reset password
 POST {{baseUrl}}/api/auth/reset-password
@@ -140,6 +138,23 @@ Content-Type: video/mp4
 
 < C:\Users\Tchaves\Videos\WhatsAppVideo.mp4
 --boundary--
+
+### Create video by admin
+POST {{baseUrl}}/api/videos/admin
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "title": "Sample video title",
+    "description": "This is a sample video description",
+    "src": "video-uuid-here",
+    "poster": "Sample video title",
+    "year": 2026,
+    "rating": "PG-22",
+    "duration": 8100,
+    "categories": ["Action", "Thriller"],
+    "published": false
+}
 
 ### Serve video
 GET {{baseUrl}}/api/files/video/uuid-video
