@@ -177,6 +177,11 @@ Authorization: Bearer {{authToken}}
 DELETE {{baseUrl}}/api/videos/admin/2
 Authorization: Bearer {{authToken}}
 
+### Toggle video publish status by admin
+PATCH {{baseUrl}}/api/videos/admin/1/publish
+        ?value=true
+Authorization: Bearer {{authToken}}
+
 ### Get all admin videos
 GET {{baseUrl}}/api/videos/admin
     ?page=0

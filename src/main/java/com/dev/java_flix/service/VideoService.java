@@ -15,4 +15,6 @@ public interface VideoService {
 
     MessageResponse deleteVideoByAdmin(Long id);
 
+    MessageResponse toggleVideoPublishStatusByAdmin(Long id, boolean value);
+
 }

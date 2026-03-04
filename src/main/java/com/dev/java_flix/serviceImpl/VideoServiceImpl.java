@@ -95,4 +95,14 @@ public class VideoServiceImpl implements VideoService{
         return new MessageResponse("Video deleted successfully.");
     }
 
+    @Override
+    public MessageResponse toggleVideoPublishStatusByAdmin(Long id, boolean status) {
+        
+        Video video = serviceUtils.getVideoByIdOrThrow(id);
+        video.setPublished(status);
+
+        videoRepository.save(video);
+        return new MessageResponse("Video publish status updated successfuly.");
+    }
+
 }
