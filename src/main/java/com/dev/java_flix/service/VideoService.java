@@ -4,6 +4,7 @@ import com.dev.java_flix.dto.request.VideoRequest;
 import com.dev.java_flix.dto.response.MessageResponse;
 import com.dev.java_flix.dto.response.PageResponse;
 import com.dev.java_flix.dto.response.VideoResponse;
+import com.dev.java_flix.dto.response.VideoStatsResponse;
 
 public interface VideoService {
 
@@ -16,5 +17,7 @@ public interface VideoService {
     MessageResponse deleteVideoByAdmin(Long id);
 
     MessageResponse toggleVideoPublishStatusByAdmin(Long id, boolean value);
+
+    VideoStatsResponse getAdminStats();
 
 }

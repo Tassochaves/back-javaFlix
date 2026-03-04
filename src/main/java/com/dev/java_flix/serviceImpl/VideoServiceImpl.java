@@ -12,6 +12,7 @@ import com.dev.java_flix.dto.request.VideoRequest;
 import com.dev.java_flix.dto.response.MessageResponse;
 import com.dev.java_flix.dto.response.PageResponse;
 import com.dev.java_flix.dto.response.VideoResponse;
+import com.dev.java_flix.dto.response.VideoStatsResponse;
 import com.dev.java_flix.entity.Video;
 import com.dev.java_flix.service.VideoService;
 import com.dev.java_flix.util.PaginationUtils;
@@ -103,6 +104,16 @@ public class VideoServiceImpl implements VideoService{
 
         videoRepository.save(video);
         return new MessageResponse("Video publish status updated successfuly.");
+    }
+
+    @Override
+    public VideoStatsResponse getAdminStats() {
+        
+        long totalVideo = videoRepository.count();
+        long publishedVideos = videoRepository.countPublishedVideos();
+        long totalDuration = videoRepository.getTotalDuration();
+
+        return new VideoStatsResponse(totalVideo, publishedVideos, totalDuration);
     }
 
 }

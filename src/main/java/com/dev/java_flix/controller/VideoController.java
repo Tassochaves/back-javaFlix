@@ -17,6 +17,7 @@ import com.dev.java_flix.dto.request.VideoRequest;
 import com.dev.java_flix.dto.response.MessageResponse;
 import com.dev.java_flix.dto.response.PageResponse;
 import com.dev.java_flix.dto.response.VideoResponse;
+import com.dev.java_flix.dto.response.VideoStatsResponse;
 import com.dev.java_flix.service.VideoService;
 
 import jakarta.validation.Valid;
@@ -71,4 +72,9 @@ public class VideoController {
             return ResponseEntity.ok(videoService.toggleVideoPublishStatusByAdmin(id, value));
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/admin/stats") 
+    public ResponseEntity<VideoStatsResponse> getAdminStats(){
+        return ResponseEntity.ok(videoService.getAdminStats());
+    }
 }

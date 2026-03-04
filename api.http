@@ -189,6 +189,10 @@ GET {{baseUrl}}/api/videos/admin
     &search=
 Authorization: Bearer {{authToken}}
 
+### Get video statistics through the admin
+GET {{baseUrl}}/api/videos/admin/stats
+Authorization: Bearer {{authToken}}
+
 ### Serve video
 GET {{baseUrl}}/api/files/video/uuid-video
     ?range=0-100

@@ -17,4 +17,10 @@ public interface VideoRepository extends JpaRepository<Video, Long>{
     )
     Page<Video> searchVideos(@Param("search") String search, Pageable pageable);
 
+    @Query("SELECT COUNT(v) FROM Video v WHERE v.published = true")
+    long countPublishedVideos();
+
+    @Query("SELECT COALESCE(SUM(v.duration), 0) FROM Video v")
+    long getTotalDuration();
+
 }
