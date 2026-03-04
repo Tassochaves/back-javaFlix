@@ -173,6 +173,10 @@ Authorization: Bearer {{authToken}}
     "published": false
 }
 
+### Delete video by admin
+DELETE {{baseUrl}}/api/videos/admin/2
+Authorization: Bearer {{authToken}}
+
 ### Get all admin videos
 GET {{baseUrl}}/api/videos/admin
     ?page=0

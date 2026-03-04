@@ -13,4 +13,6 @@ public interface VideoService {
 
     MessageResponse updateVideoByAdmin(Long id, VideoRequest videoRequest);
 
+    MessageResponse deleteVideoByAdmin(Long id);
+
 }
