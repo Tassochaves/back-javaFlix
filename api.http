@@ -156,6 +156,23 @@ Authorization: Bearer {{authToken}}
     "published": false
 }
 
+### Update video by admin
+PUT {{baseUrl}}/api/videos/admin/2
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "title": "Sample video title 2",
+    "description": "This is a sample video description",
+    "src": "video-uuid-here2",
+    "poster": "poster-uuid-here2",
+    "year": 2026,
+    "rating": "PG-23",
+    "duration": 8100,
+    "categories": ["Action", "Thriller"],
+    "published": false
+}
+
 ### Get all admin videos
 GET {{baseUrl}}/api/videos/admin
     ?page=0
