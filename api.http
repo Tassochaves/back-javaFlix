@@ -193,6 +193,13 @@ Authorization: Bearer {{authToken}}
 GET {{baseUrl}}/api/videos/admin/stats
 Authorization: Bearer {{authToken}}
 
+### Get published videos
+GET {{baseUrl}}/api/videos/published
+    ?page=0
+    &size=10
+    &search=
+Authorization: Bearer {{authToken}}
+
 ### Serve video
 GET {{baseUrl}}/api/files/video/uuid-video
     ?range=0-100

@@ -20,4 +20,6 @@ public interface VideoService {
 
     VideoStatsResponse getAdminStats();
 
+    PageResponse<VideoResponse> getPublishedVideos(int page, int size, String search, String email);
+
 }

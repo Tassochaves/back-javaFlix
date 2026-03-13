@@ -2,6 +2,7 @@ package com.dev.java_flix.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -76,5 +77,17 @@ public class VideoController {
     @GetMapping("/admin/stats") 
     public ResponseEntity<VideoStatsResponse> getAdminStats(){
         return ResponseEntity.ok(videoService.getAdminStats());
+    }
+
+    @GetMapping("/published")
+    public ResponseEntity<PageResponse<VideoResponse>> getPublishedVideos(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size,
+        @RequestParam(required = false) String search,
+        Authentication authentication
+    ) {
+        String email = authentication.getName();
+        PageResponse<VideoResponse> response = videoService.getPublishedVideos(page, size, search, email);
+        return ResponseEntity.ok(response);
     }
 }

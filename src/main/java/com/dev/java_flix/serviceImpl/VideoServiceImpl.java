@@ -1,6 +1,7 @@
 package com.dev.java_flix.serviceImpl;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -114,6 +115,39 @@ public class VideoServiceImpl implements VideoService{
         long totalDuration = videoRepository.getTotalDuration();
 
         return new VideoStatsResponse(totalVideo, publishedVideos, totalDuration);
+    }
+
+    @Override
+    public PageResponse<VideoResponse> getPublishedVideos(int page, int size, String search, String email) {
+        
+        Pageable pageable = PaginationUtils.createPageRequest(page, size, "id");
+        Page<Video> videoPage;
+
+        if (search != null && !search.trim().isEmpty()){
+            videoPage = videoRepository.searchPublishedVideos(search.trim(), pageable);
+        } else {
+            videoPage = videoRepository.findPublishedVideos(pageable);
+        }
+
+        List<Video> videos = videoPage.getContent();
+
+        Set<Long> watchListIds = Set.of();
+
+        if (!videos.isEmpty()){
+            try {
+                List<Long> videosIds = videos.stream().map(Video::getId).toList();
+                watchListIds = userRepository.findWatchListVideosIds(email, videosIds);
+            } catch (Exception e) {
+                watchListIds = Set.of();
+            }
+        }
+
+        Set<Long> finalWatchListIds = watchListIds;
+        videos.forEach(video -> video.setIsInWatchlist(finalWatchListIds.contains(video.getId())));
+
+        List<VideoResponse> videoResponses = videos.stream().map(VideoResponse::fromEntity).toList();
+
+        return PaginationUtils.toPageResponse(videoPage, videoResponses);
     }
 
 }
