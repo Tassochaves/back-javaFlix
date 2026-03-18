@@ -1,5 +1,7 @@
 package com.dev.java_flix.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -88,6 +90,12 @@ public class VideoController {
     ) {
         String email = authentication.getName();
         PageResponse<VideoResponse> response = videoService.getPublishedVideos(page, size, search, email);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/featured")
+    public ResponseEntity<List<VideoResponse>> getFeaturedVideos(){
+        List<VideoResponse> response = videoService.getFeaturedVideos();
         return ResponseEntity.ok(response);
     }
 }

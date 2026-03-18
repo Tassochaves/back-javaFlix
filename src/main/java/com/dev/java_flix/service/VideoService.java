@@ -1,5 +1,7 @@
 package com.dev.java_flix.service;
 
+import java.util.List;
+
 import com.dev.java_flix.dto.request.VideoRequest;
 import com.dev.java_flix.dto.response.MessageResponse;
 import com.dev.java_flix.dto.response.PageResponse;
@@ -21,5 +23,7 @@ public interface VideoService {
     VideoStatsResponse getAdminStats();
 
     PageResponse<VideoResponse> getPublishedVideos(int page, int size, String search, String email);
+
+    List<VideoResponse> getFeaturedVideos();
 
 }

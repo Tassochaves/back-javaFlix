@@ -1,5 +1,7 @@
 package com.dev.java_flix.dao;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -31,8 +33,10 @@ public interface VideoRepository extends JpaRepository<Video, Long>{
     )
     Page<Video> searchPublishedVideos(@Param("search") String search, Pageable pageable);
 
-    @Query(
-        "SELECT v FROM Video v WHERE v.published = true ORDER BY v.createdAt DESC")
+    @Query("SELECT v FROM Video v WHERE v.published = true ORDER BY v.createdAt DESC")
     Page<Video> findPublishedVideos(Pageable pageable);
+
+    @Query("SELECT v FROM Video v WHERE v.published = true ORDER BY FUNCTION('RAND')")
+    List<Video> findRandomPublishedVideos(Pageable pageable);
 
 }

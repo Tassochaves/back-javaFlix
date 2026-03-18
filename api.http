@@ -200,6 +200,10 @@ GET {{baseUrl}}/api/videos/published
     &search=
 Authorization: Bearer {{authToken}}
 
+### Get featured videos
+GET {{baseUrl}}/api/videos/featured
+Authorization: Bearer {{authToken}}
+
 ### Serve video
 GET {{baseUrl}}/api/files/video/uuid-video
     ?range=0-100
