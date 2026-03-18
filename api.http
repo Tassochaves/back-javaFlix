@@ -224,3 +224,7 @@ Content-Type: image/png
 ### Serve image
 GET {{baseUrl}}/api/files/image/uuid-image
 Authorization: Bearer {{authToken}}
+
+### Add video to Watchlist
+POST {{baseUrl}}/api/watchlist/1
+Authorization: Bearer {{authToken}}
