@@ -228,3 +228,14 @@ Authorization: Bearer {{authToken}}
 ### Add video to Watchlist
 POST {{baseUrl}}/api/watchlist/1
 Authorization: Bearer {{authToken}}
+
+### Remove video from Watchlist
+DELETE {{baseUrl}}/api/watchlist/1
+Authorization: Bearer {{authToken}}
+
+### Get Watchlist
+GET {{baseUrl}}/api/watchlist
+    ?page=0
+    &size=10
+    &search=
+Authorization: Bearer {{authToken}}
